@@ -27,7 +27,7 @@ class OrderController {
 
   async index(request, response) {
     const { user_id } = request.query;
-    const admin = true;
+    const admin = false;
     
     let ordersWithItems;
   
