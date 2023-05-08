@@ -19,8 +19,8 @@ class SessionsController {
       throw new AppError("E-mail ou senha incorreta", 401);
     }
 
-    // create token
-
+    // CREATE TOKEN 
+    
     return response.json(user);
   }
 }

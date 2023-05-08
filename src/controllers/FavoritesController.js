@@ -4,6 +4,7 @@ class FavoritesController {
   async index(request, response) {
     const { user_id } = request.params;
 
+    // select the user's favorites dishes
     const favorites = await knex("favorites")
     .select([
       "dishes.title",
@@ -16,7 +17,7 @@ class FavoritesController {
     .where({ user_id })
 
 
-    return response.json(favorites);
+    return response.status(200).json(favorites);
   }
 }
 

@@ -5,12 +5,14 @@ class OrderController {
     const { cart, order_amount, payment_method } = request.body;
     const { user_id } = request.params;
 
+    // add order to database
     const [order_id] = await knex("orders").insert({
       user_id,
       order_amount,
       payment_method
     });
 
+    // add order's items to database
     const itemsInsert = cart.map(item => {
       return {
         dish_id: item.dish_id,
@@ -93,7 +95,7 @@ class OrderController {
       updated_at: knex.fn.now()
     }).where({ id });
 
-    return response.status(201).json();
+    return response.status(200).json();
   }
 }
 
