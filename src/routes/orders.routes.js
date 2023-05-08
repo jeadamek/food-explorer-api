@@ -1,10 +1,11 @@
 const { Router } = require("express");
-const OrderController = require("../controllers/OrderController");
+const OrdersController = require("../controllers/OrdersController");
 
 const ordersRoutes = Router();
-const orderController = new OrderController;
+const orderController = new OrdersController;
 
 ordersRoutes.post("/:user_id", orderController.create);
 ordersRoutes.put("/", orderController.update);
+ordersRoutes.get("/", orderController.index);
 
 module.exports = ordersRoutes;
