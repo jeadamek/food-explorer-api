@@ -1,10 +1,14 @@
 const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
+const DiskStorage = require("../providers/DiskStorage");
 
 class DishesController {
   async create(request, response) {
     // get request's information
     const { name, description, category, price, ingredients } = request.body;
+    const dishImage = request.file.filename;
+
+    const diskStorage = new DiskStorage();
 
     // validate dish
     const checkIfDishExists = await knex("dishes").where({ name }).first();
@@ -13,14 +17,15 @@ class DishesController {
       throw new AppError("Este prato já está registrado");
     }
 
-    // !!!! FALTA IMAGEM !!!!
-
+    const filename = await diskStorage.saveFile(dishImage);
+    
     // add dish to database
     const [dish_id] = await knex("dishes").insert({
       name,
       description,
       category,
-      price
+      price,
+      image: filename
     });
 
     // add ingredients to database
@@ -40,6 +45,9 @@ class DishesController {
     // get new information
     const { name, description, category, price, ingredients } = request.body;
     const { id } = request.params;
+    const imageFilename = request.file.filename;
+
+    const diskStorage = new DiskStorage();
 
     const dish = await knex("dishes").where({ id }).first();
 
@@ -54,11 +62,18 @@ class DishesController {
       throw new AppError("O nome deste prato já consta no menu");
     }
 
-   // !!!! FALTA IMAGEM !!!!
+    // check if there is a image for this 
+    if(imageFilename){
+      await diskStorage.deleteFile(dish.image);
+    }
+    
+    const filename = await diskStorage.saveFile(imageFilename);
+    
     dish.name = name ?? dish.name;
     dish.description = description ?? dish.description;
     dish.category = category ?? dish.category;
     dish.price = price ?? dish.price;
+    dish.image = filename ?? dish.image;
 
     await knex("dishes").update(dish).where({ id });
 
@@ -120,6 +135,7 @@ class DishesController {
         .orderBy("name");
     }
 
+    // select dish ingredients, and return dish with ingredients
     const dishesIngredients = await knex("Ingredients");
     const dishWithIngredients = dishes.map(dish => {
       const dishIngredients = dishesIngredients.filter(ingredient => ingredient.dish_id === dish.id)
@@ -137,6 +153,13 @@ class DishesController {
   async delete(request, response) {
     const { id } = request.params;
 
+    const diskStorage = new DiskStorage();
+    
+    // delete image from files
+    const [dish] = await knex("dishes").where({ id });
+    await diskStorage.deleteFile(dish.image);
+
+    // delete dish from database
     await knex("dishes").where({ id }).delete();
 
     return response.status(200).json();
