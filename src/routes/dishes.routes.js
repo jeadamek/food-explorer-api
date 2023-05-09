@@ -4,10 +4,11 @@ const uploadConfig = require("../configs/upload");
 
 const DishesController = require("../controllers/DishesController");
 
-const dishesRoutes = Router();
-const upload = multer(uploadConfig.MULTER);
 
 const dishesController = new DishesController();
+
+const dishesRoutes = Router();
+const upload = multer(uploadConfig.MULTER);
 
 dishesRoutes.post("/", upload.single("image"), dishesController.create);
 dishesRoutes.put("/:id", upload.single("image"), dishesController.update);

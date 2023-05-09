@@ -1,8 +1,9 @@
 const { Router } = require("express");
 const FavoritesController = require("../controllers/FavoritesController");
 
-const favoriteRoutes = Router();
 const favoritesController = new FavoritesController();
+
+const favoriteRoutes = Router();
 
 favoriteRoutes.get("/:user_id", favoritesController.index);
 
