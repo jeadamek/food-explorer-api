@@ -1,5 +1,6 @@
 const { hash, compare } = require("bcryptjs");
 const AppError = require("../utils/AppError");
+
 const knex = require("../database/knex");
 
 class UserController {
@@ -26,10 +27,10 @@ class UserController {
 
   async update(request, response) {
     const { name, email, password, old_password } = request.body;
-    const { id } = request.params;
+    const user_id = request.user.id;
 
     // checks if user exists
-    const user = await knex("users").where({ id }).first();
+    const user = await knex("users").where({ id: user_id }).first();
 
     if (!user) {
       throw new AppError("Usuário não existe");
@@ -67,7 +68,7 @@ class UserController {
       email: user.email,
       password: user.password,
       updated_at: knex.fn.now()
-    }).where({ id });
+    }).where({ id: user_id });
 
     return response.status(200).json("Usuário atualizado com sucesso");
   }

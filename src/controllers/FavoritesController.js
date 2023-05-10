@@ -2,7 +2,7 @@ const knex = require("../database/knex");
 
 class FavoritesController {
   async index(request, response) {
-    const { user_id } = request.params;
+    const user_id = request.user.id;
 
     // select the user's favorites dishes
     const favorites = await knex("favorites")

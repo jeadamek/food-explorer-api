@@ -1,6 +1,7 @@
 const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
-const authConfig = require("../configs/auth");
+const authConfig = require("../configs/authUser");
+const authConfigAdmin = require("../configs/authAdmin");
 
 const { compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
@@ -23,14 +24,26 @@ class SessionsController {
     }
 
     // create user token
-    const { secret, expiresIn } = authConfig.jwt
+    if (user.isAdmin) {
+      const { secret, expiresIn } = authConfigAdmin.jwt
 
-    const token = sign({}, secret, {
-      subject: String(user.id),
-      expiresIn
-    });
-    
-    return response.json({ user, token });
+      const token = sign({}, secret, {
+        subject: String(user.id),
+        expiresIn
+      });
+
+      return response.json({ user, token });
+
+    } else {
+      const { secret, expiresIn } = authConfig.jwt
+
+      const token = sign({}, secret, {
+        subject: String(user.id),
+        expiresIn
+      });
+
+      return response.json({ user, token });
+    }
   }
 }
 
