@@ -29,6 +29,8 @@ class UserController {
     const { name, email, password, old_password } = request.body;
     const user_id = request.user.id;
 
+    console.log(email)
+
     // checks if user exists
     const user = await knex("users").where({ id: user_id }).first();
 

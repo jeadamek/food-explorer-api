@@ -45,9 +45,6 @@ class DishesController {
     // get new information
     const { name, description, category, price, ingredients } = request.body;
     const { id } = request.params;
-    const imageFilename = request.file.filename;
-
-    const diskStorage = new DiskStorage();
 
     const dish = await knex("dishes").where({ id }).first();
 
@@ -56,24 +53,17 @@ class DishesController {
     }
 
     // check if there is other dish with the new name
-    const checkIfDishExists = await knex("dishes").where({ name }).first()
+    const checkIfDishExists = await knex("dishes").where({ name }).first();
 
     if (checkIfDishExists && checkIfDishExists.id !== dish.id) {
       throw new AppError("O nome deste prato já consta no menu");
     }
-
-    // check if there is a image for this 
-    if(imageFilename){
-      await diskStorage.deleteFile(dish.image);
-    }
     
-    const filename = await diskStorage.saveFile(imageFilename);
     
     dish.name = name ?? dish.name;
     dish.description = description ?? dish.description;
     dish.category = category ?? dish.category;
     dish.price = price ?? dish.price;
-    dish.image = filename ?? dish.image;
 
     await knex("dishes").update(dish).where({ id });
 

@@ -15,12 +15,13 @@ function ensureAuthenticatedAdmin(request, response, next) {
     const { sub: user_id } = verify(token, authConfigAdmin.jwt.secret)
 
     request.user = {
-      id: Number(user_id)
+      id: Number(user_id),
+      isAdmin: true
     }
 
     return next()
   } catch {
-    throw new AppError('JWT token inválido', 401)
+    throw new AppError('JWT token admin inválido', 401)
   }
 }
 
