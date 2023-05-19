@@ -29,12 +29,20 @@ class DishesController {
     });
 
     // add ingredients to database
-    const insertIngredients = ingredients.map(ingredient => {
-      return {
-        name: ingredient,
-        dish_id
+    const hasOnlyOneIngredient = typeof(ingredients) === "string";
+
+    const insertIngredients = hasOnlyOneIngredient ? 
+      {
+          name: ingredients,
+          dish_id
       }
-    });
+    :
+      ingredients.map(ingredient => {
+        return {
+          name: ingredient,
+          dish_id
+        }
+      });
 
     await knex("ingredients").insert(insertIngredients);
 
