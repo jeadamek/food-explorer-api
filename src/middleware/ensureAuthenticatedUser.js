@@ -1,8 +1,8 @@
 const { verify } = require('jsonwebtoken')
 const AppError = require('../utils/AppError')
-const authConfigAdmin = require('../configs/authAdmin')
+const authConfig = require('../configs/authUser')
 
-function ensureAuthenticatedAdmin(request, response, next) {
+function ensureAuthenticatedUser(request, response, next) {
   const authHeader = request.headers.authorization
 
   if (!authHeader) {
@@ -12,7 +12,7 @@ function ensureAuthenticatedAdmin(request, response, next) {
   const [, token] = authHeader.split(' ')
 
   try {
-    const { sub: user_id } = verify(token, authConfigAdmin.jwt.secret)
+    const { sub: user_id } = verify(token, authConfig.jwt.secret)
 
     request.user = {
       id: Number(user_id),
@@ -20,8 +20,8 @@ function ensureAuthenticatedAdmin(request, response, next) {
 
     return next();
   } catch {
-    throw new AppError('JWT token admin inválido', 401)
+    throw new AppError('JWT token inválido', 401)
   }
 }
 
-module.exports = ensureAuthenticatedAdmin;
+module.exports = ensureAuthenticatedUser;
