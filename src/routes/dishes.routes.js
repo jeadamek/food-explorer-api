@@ -14,14 +14,14 @@ const dishesImageController = new DishesImageController();
 const dishesRoutes = Router();
 const upload = multer(uploadConfig.MULTER);
 
-
+// ADMIN ROUTES
 dishesRoutes.post("/", ensureAuthenticatedAdmin, upload.single("image"), dishesController.create);
 dishesRoutes.put("/:id", ensureAuthenticatedAdmin, dishesController.update);
 dishesRoutes.patch("/image/:id", ensureAuthenticatedAdmin, upload.single("image"), dishesImageController.update);
-dishesRoutes.get("/admin", ensureAuthenticatedAdmin, dishesController.index);
-dishesRoutes.get("/admin/:id", ensureAuthenticatedAdmin, dishesController.show);
+// dishesRoutes.get("/admin", ensureAuthenticatedAdmin, dishesController.index);
 dishesRoutes.delete("/:id", ensureAuthenticatedAdmin, dishesController.delete);
 
+// ADMIN AND CLIENT ROUTES
 dishesRoutes.get("/", ensureAuthenticated, dishesController.index);
 dishesRoutes.get("/:id", ensureAuthenticated, dishesController.show);
 
