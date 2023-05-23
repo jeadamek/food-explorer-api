@@ -18,7 +18,6 @@ const upload = multer(uploadConfig.MULTER);
 dishesRoutes.post("/", ensureAuthenticatedAdmin, upload.single("image"), dishesController.create);
 dishesRoutes.put("/:id", ensureAuthenticatedAdmin, dishesController.update);
 dishesRoutes.patch("/image/:id", ensureAuthenticatedAdmin, upload.single("image"), dishesImageController.update);
-// dishesRoutes.get("/admin", ensureAuthenticatedAdmin, dishesController.index);
 dishesRoutes.delete("/:id", ensureAuthenticatedAdmin, dishesController.delete);
 
 // ADMIN AND CLIENT ROUTES
