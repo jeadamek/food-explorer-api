@@ -67,7 +67,6 @@ class DishesController {
       throw new AppError("O nome deste prato já consta no menu");
     }
     
-    
     dish.name = name ?? dish.name;
     dish.description = description ?? dish.description;
     dish.category = category ?? dish.category;
@@ -121,8 +120,6 @@ class DishesController {
       .orWhereLike("dishes.name", `%${search}%`)
       .groupBy("dish_id")
       .orderBy("dishes.name")
-
-    
 
     // select dish ingredients, and return dish with ingredients
     const dishesIngredients = await knex("Ingredients");
