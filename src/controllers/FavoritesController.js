@@ -33,6 +33,19 @@ class FavoritesController {
 
     return response.status(200).json(favorites);
   }
+
+  async delete(request, response) {
+    const user_id = request.user.id;
+    const { dish_id } = request.params;
+    
+    // delete favorite dish from database
+    await knex("favorites")
+      .where({ user_id })
+      .andWhere({ dish_id })
+      .delete();
+
+    return response.status(200).json();
+  }
 }
 
 module.exports = FavoritesController;
