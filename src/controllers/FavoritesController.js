@@ -18,14 +18,15 @@ class FavoritesController {
     const user_id = request.user.id;
 
     // select the user's favorites dishes
-    const favorites = await knex("favorites")
+    const favorites = await knex("dishes")
     .select([
-      "dishes.title",
+      "dishes.id",
+      "dishes.name",
       "dishes.category",
       "dishes.description",
       "dishes.image",
     ])
-    .innerJoin("dishes", "favorites.dish_id", "dishes.id")
+    .innerJoin("favorites", "favorites.dish_id", "dishes.id")
     .groupBy("dish_id")
     .where({ user_id })
 
