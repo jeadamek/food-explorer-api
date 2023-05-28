@@ -29,12 +29,20 @@ class DishesController {
     });
 
     // add ingredients to database
-    const insertIngredients = ingredients.map(ingredient => {
-      return {
-        name: ingredient,
-        dish_id
+    const hasOnlyOneIngredient = typeof(ingredients) === "string";
+
+    const insertIngredients = hasOnlyOneIngredient ? 
+      {
+          name: ingredients,
+          dish_id
       }
-    });
+    :
+      ingredients.map(ingredient => {
+        return {
+          name: ingredient,
+          dish_id
+        }
+      });
 
     await knex("ingredients").insert(insertIngredients);
 
@@ -58,7 +66,6 @@ class DishesController {
     if (checkIfDishExists && checkIfDishExists.id !== dish.id) {
       throw new AppError("O nome deste prato já consta no menu");
     }
-    
     
     dish.name = name ?? dish.name;
     dish.description = description ?? dish.description;
@@ -97,33 +104,22 @@ class DishesController {
   }
 
   async index(request, response) {
-    const { name, ingredients } = request.query;
+    const { search } = request.query;
 
-    let dishes;
-
-    if (ingredients) {
-      const filterIngredients = ingredients.split(',').map(ingredient => ingredient.trim());
-      
-      dishes = await knex("ingredients")
-        .select([ 
-          "dishes.id",
-          "dishes.name",
-          "dishes.description",
-          "dishes.category",
-          "dishes.price",
-          "dishes.image"
-        ])
-        .innerJoin("dishes", "ingredients.dish_id", "dishes.id")
-        .whereIn("ingredients.name", filterIngredients)
-        .andWhereLike("dishes.name", `%${name}%`)
-        .groupBy("dish_id")
-        .orderBy("dishes.name")
-
-    } else {
-      dishes = await knex("dishes")
-        .whereLike("dishes.name", `%${name}%`)
-        .orderBy("name");
-    }
+    const dishes = await knex("ingredients")
+      .select([ 
+        "dishes.id",
+        "dishes.name",
+        "dishes.description",
+        "dishes.category",
+        "dishes.price",
+        "dishes.image"
+      ])
+      .innerJoin("dishes", "ingredients.dish_id", "dishes.id")
+      .whereLike("ingredients.name", `%${search}%`)
+      .orWhereLike("dishes.name", `%${search}%`)
+      .groupBy("dish_id")
+      .orderBy("dishes.name")
 
     // select dish ingredients, and return dish with ingredients
     const dishesIngredients = await knex("Ingredients");
