@@ -3,7 +3,7 @@ const knex = require("../database/knex");
 class OrdersAdminController {
   async index(request, response) {
     
-    const orders = await knex("order_items")
+    const orders = await knex("orders")
       .select([
           "orders.id",
           "orders.user_id",
@@ -13,10 +13,17 @@ class OrdersAdminController {
           "orders.created_at",
           "orders.created_at",
       ])
-      .innerJoin("orders", "orders.id", "order_items.order_id")
-      .orderBy("orders.updated_at","desc")
+      .orderBy("orders.created_at");
 
     const ordersItems = await knex("order_items") 
+      .select([
+        "dishes.name",
+        "order_items.order_id",
+        "order_items.quantity",
+        "order_items.unit_price",
+      ])
+      .innerJoin("dishes", "order_items.dish_id", "dishes.id");
+
     const ordersWithItems = orders.map(order => {
         const orderItem = ordersItems.filter(item => item.order_id === order.id);
 
