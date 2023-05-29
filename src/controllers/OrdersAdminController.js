@@ -13,7 +13,15 @@ class OrdersAdminController {
           "orders.created_at",
           "orders.created_at",
       ])
-      .orderBy("orders.created_at");
+      .orderByRaw(`
+        CASE
+          WHEN orders.order_status = 'pendente' THEN 1
+          WHEN orders.order_status = 'preparando' THEN 2
+          WHEN orders.order_status = 'pronto' THEN 3
+          WHEN orders.order_status = 'entregue' THEN 4
+          ELSE 5
+        END, orders.id
+      `);
 
     const ordersItems = await knex("order_items") 
       .select([
