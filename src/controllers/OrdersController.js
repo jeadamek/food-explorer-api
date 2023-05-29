@@ -40,7 +40,7 @@ class OrderController {
         "orders.created_at",
         "orders.updated_at",
       ])
-      .orderBy("orders.created_at","desc")
+      .orderBy("orders.created_at")
 
     // make sure only user's orders' id will appear on request
     const orderIds = userOrders.map(order => order.id);
