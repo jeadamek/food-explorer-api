@@ -20,7 +20,7 @@ class OrdersAdminController {
           WHEN orders.order_status = 'pronto' THEN 3
           WHEN orders.order_status = 'entregue' THEN 4
           ELSE 5
-        END, orders.id
+        END, orders.id desc
       `);
 
     const ordersItems = await knex("order_items") 
