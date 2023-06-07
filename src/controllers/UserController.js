@@ -29,8 +29,6 @@ class UserController {
     const { name, email, password, old_password } = request.body;
     const user_id = request.user.id;
 
-    console.log(email)
-
     // checks if user exists
     const user = await knex("users").where({ id: user_id }).first();
 
@@ -58,7 +56,7 @@ class UserController {
       const checkOldPassword = await compare(old_password, user.password);
 
       if (!checkOldPassword) {
-        throw new AppError("A senha antiga não confere.");
+        throw new AppError("A senha atual não confere.");
       }
 
       user.password = await hash(password, 8);
