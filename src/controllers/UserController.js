@@ -18,8 +18,7 @@ class UserController {
     await knex("users").insert({
       name,
       email,
-      password: hashedpasswod,
-      isAdmin: true
+      password: hashedpasswod
     });
 
     return response.status(201).json();
