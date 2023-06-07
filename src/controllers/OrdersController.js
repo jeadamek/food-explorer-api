@@ -40,14 +40,24 @@ class OrderController {
         "orders.created_at",
         "orders.updated_at",
       ])
-      .innerJoin("order_items", "orders.id", "order_items.order_id")
-      .groupBy("order_id")
-      .orderBy("orders.created_at","desc")
+      .orderBy("orders.created_at", "desc");
 
-    const ordersItems = await knex("order_items");
-    const ordersWithItems = userOrders.map(order => {
+    // make sure only user's orders' id will appear on request
+    const orderIds = userOrders.map(order => order.id);
+
+    const ordersItems = await knex("order_items")
+      .select([
+        "dishes.name",
+        "order_items.order_id",
+        "order_items.quantity",
+        "order_items.unit_price",
+      ])
+      .whereIn("order_items.order_id", orderIds)
+      .innerJoin("dishes", "order_items.dish_id", "dishes.id")
+
+    const ordersWithItems = userOrders.map(order => { 
       const orderItems = ordersItems.filter(item => item.order_id === order.id);
-
+      
       return {
         ...order,
         items: orderItems

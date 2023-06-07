@@ -12,8 +12,8 @@ const ordersAdminController = new OrdersAdminController();
 const ordersRoutes = Router();
 
 // ADMIN ROUTES
-ordersRoutes.put("/admin", ensureAuthenticatedAdmin, ordersAdminController.update);
 ordersRoutes.get("/admin", ensureAuthenticatedAdmin, ordersAdminController.index);
+ordersRoutes.put("/", ensureAuthenticatedAdmin, ordersAdminController.update);
 
 // CLIENT ROUTES
 ordersRoutes.post("/", ensureAuthenticatedUser, ordersController.create);
