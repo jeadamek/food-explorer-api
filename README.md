@@ -80,7 +80,6 @@ Developing this project I could practice and study:
 </div>
 </br>
 
----
 
 ## 🚀 Getting started
 
@@ -110,11 +109,19 @@ $ npm run dev
 
 The application will be accessible at `http://localhost:3000/`.
 
-<br />
-
 
 ## 💻 Usage
 Once the API is running, users can interact with the restaurant database by making requests to the following endpoints:
+
+`POST /sessions:` Create a new session
+
+<br />
+
+`POST /users:` Create a new user
+
+`PUT /users:` Update user's information
+
+<br />
 
 `GET /dishes:` Retrieve a list of all dishes
 
@@ -128,13 +135,7 @@ Once the API is running, users can interact with the restaurant database by maki
 
 `DELETE /dishes/:id:` Delete a dish by ID
 
-
-
-`POST /users:` Create a new user
-
-`PUT /users:` Update user's information
-
-
+<br />
 
 `GET /orders/admin:` Retrieve a list of all orders
 
@@ -144,11 +145,7 @@ Once the API is running, users can interact with the restaurant database by maki
 
 `PUT /orders/:id:` Update a order's status by ID
 
-
-
-`POST /sessions:` Create a new session
-
-
+<br />
 
 `GET /favorites:` Retrieve a list of all favorites
 
