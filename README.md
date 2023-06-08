@@ -105,7 +105,9 @@ Once the API is running, users can interact with the movie ratings database by m
 
 `GET /dishes/:id:` Retrieve a single dish by ID
 
-`PUT /dishes/:id:` Update a dish by ID
+`PUT /dishes/image/:id:` Update a dish by ID
+
+`PATCH /dishes/:id:` Upload dish's image
 
 `DELETE /dishes/:id:` Delete a dish by ID
 
@@ -113,18 +115,29 @@ Once the API is running, users can interact with the movie ratings database by m
 
 `POST /users:` Create a new user
 
-`PUT /users/:id:` Update user's information
+`PUT /users:` Update user's information
 
-<!-- `PATCH /users/avatar` Upload user's avatar image -->
 
-`GET /orders:` Retrieve a list of all orders
+
+`GET /orders/admin:` Retrieve a list of all orders
+
+`GET /orders:` Retrieve a list of all user's orders
 
 `POST /orders:` Create a new order
 
 `PUT /orders/:id:` Update a order's status by ID
 
 
+
+`POST /sessions:` Create a new session
+
+
+
 `GET /favorites:` Retrieve a list of all favorites
+
+`POST /favorites:` Add a new favorite
+
+`DELETE /favorites/:id` Delete a favorite
 
 ## 📝 License
 
