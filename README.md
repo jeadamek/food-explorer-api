@@ -24,7 +24,7 @@ This is an API application for a fictional restaurant that allows administrators
 
 The database diagram can be seen in the image below:<br/>
 
-![preview]()
+![Food Explorer Database Diagram](https://github.com/jeadamek/food-explorer-api/assets/78454317/7e422811-4f4f-4f03-b6e5-6fd59c3a240f)
 
 ## ✨ Features
 The Restaurant API Application provides the following features:
