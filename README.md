@@ -18,11 +18,32 @@
 This is the backend for the final project of the Explorer course at [Rocketseat School](https://www.rocketseat.com.br/). To access the entire course assignments click [this link](https://github.com/jeadamek/explorer-rocketseat). 
 
 
-In this project, the challenge was to build an API using Node.js, the frontend was developed using Reactjs, to access click on [this link](#)
- 
-<!-- texto explicativo -->
+In this project, the challenge was to build an API using Node.js, the frontend was developed using Reactjs, to access click on [this link](https://github.com/jeadamek/food-explorer-frontend).
 
-I could practice and study:
+This is an API application for a fictional restaurant that allows administrators to manage dishes and orders, and clients to create accounts, place orders, and manage their profiles.
+
+The database diagram can be seen in the image below:<br/>
+
+![Food Explorer Database Diagram](https://github.com/jeadamek/food-explorer-api/assets/78454317/7e422811-4f4f-4f03-b6e5-6fd59c3a240f)
+
+## ✨ Features
+The Restaurant API Application provides the following features:
+### For Administrators:
+- Add new dishes: Administrators can add new dishes to the restaurant's menu by providing the dish details such as name, description, price, ingredients, and image.
+- Edit dishes: Administrators can update the details of existing dishes, including the name, description, price, ingredients, and image.
+- List orders: Administrators have access to a list of all the orders placed by clients, along with their details such as order ID, order items, and status.
+- Update orders: Administrators can update the status of orders, such as marking them as in progress, ready or delivered.
+### For Clients:
+- Create an account: Clients can create their accounts by providing their name, email address, and password.
+- Update profile: Clients have the ability to update their profile information, including their name, email address, and password.
+- Create an order: Clients can place an order by selecting the desired dishes from the menu and specifying the quantity.
+- Check order status: Clients can check the status of their orders to see whether they are in progress, ready or delivered.
+- Make a dish as favorite: Clients can mark specific dishes as their favorites, allowing them to easily find and reorder them in the future.
+
+
+## 👩‍💻 Learnings
+
+Developing this project I could practice and study:
 
 - API REST built in NodeJS e ExpressJS;
 - SQLite database to save the data;
@@ -43,11 +64,6 @@ I could practice and study:
 - ES6 Modules;
 
 
-The database diagram can be seen in the image below:<br/>
-
-![preview]()
-
-
 ## 🛠️ Technologies
 
 <div style="display: inline_block"><br/>
@@ -64,9 +80,7 @@ The database diagram can be seen in the image below:<br/>
 </div>
 </br>
 
----
-<!-- ## ✨ Features
-This API allows for CRUD (Create, Read, Update, Delete) operations on movie ratings data. Users can add new ratings, retrieve existing ratings, update ratings, and delete ratings.  -->
+
 ## 🚀 Getting started
 
 ### Programs to be installed on your system:
@@ -84,7 +98,7 @@ $ cd food-explorer-api
 
 ### Install server and run the project
 
-Before run the project define your PORT and SERVER in a ```.env``` file, following the example in ```.env.example```
+Before run the project define your AUTH_ADMIN_SECRET and AUTH_CLIENT_SECRET in a ```.env``` file, following the example in ```.env.example```
 
 ```bash
 $ cd food-explorer-api
@@ -93,11 +107,21 @@ $ npm run migrate
 $ npm run dev
 ```
 
-<br />
+The application will be accessible at `http://localhost:3000/`.
 
 
 ## 💻 Usage
-Once the API is running, users can interact with the movie ratings database by making requests to the following endpoints:
+Once the API is running, users can interact with the restaurant database by making requests to the following endpoints:
+
+`POST /sessions:` Create a new session
+
+<br />
+
+`POST /users:` Create a new user
+
+`PUT /users:` Update user's information
+
+<br />
 
 `GET /dishes:` Retrieve a list of all dishes
 
@@ -105,26 +129,29 @@ Once the API is running, users can interact with the movie ratings database by m
 
 `GET /dishes/:id:` Retrieve a single dish by ID
 
-`PUT /dishes/:id:` Update a dish by ID
+`PUT /dishes/image/:id:` Update a dish by ID
+
+`PATCH /dishes/:id:` Upload dish's image
 
 `DELETE /dishes/:id:` Delete a dish by ID
 
+<br />
 
+`GET /orders/admin:` Retrieve a list of all orders
 
-`POST /users:` Create a new user
-
-`PUT /users/:id:` Update user's information
-
-<!-- `PATCH /users/avatar` Upload user's avatar image -->
-
-`GET /orders:` Retrieve a list of all orders
+`GET /orders:` Retrieve a list of all user's orders
 
 `POST /orders:` Create a new order
 
 `PUT /orders/:id:` Update a order's status by ID
 
+<br />
 
 `GET /favorites:` Retrieve a list of all favorites
+
+`POST /favorites:` Add a new favorite
+
+`DELETE /favorites/:id` Delete a favorite
 
 ## 📝 License
 

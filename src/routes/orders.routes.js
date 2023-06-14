@@ -16,7 +16,7 @@ ordersRoutes.get("/admin", ensureAuthenticatedAdmin, ordersAdminController.index
 ordersRoutes.put("/", ensureAuthenticatedAdmin, ordersAdminController.update);
 
 // CLIENT ROUTES
-ordersRoutes.post("/", ensureAuthenticatedUser, ordersController.create);
 ordersRoutes.get("/", ensureAuthenticatedUser, ordersController.index);
+ordersRoutes.post("/", ensureAuthenticatedUser, ordersController.create);
 
 module.exports = ordersRoutes;
