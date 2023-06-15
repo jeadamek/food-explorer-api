@@ -4,13 +4,13 @@
 <h3 align="center">🚀 Final Project | Backend - Explorer</h3>
 
 <div align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/jeadamek/rocketMovies_backend">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/jeadamek/food-explorer-api">
 
-  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/jeadamek/rocketMovies_backend">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/jeadamek/food-explorer-api">
   
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jeadamek/rocketMovies_backend?color=%231280BF">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jeadamek/food-explorer-api?color=%231280BF">
 
- <!-- <a href="#"> ▶️ Access Deploy </a> -->
+ <a href="https://food-explorer-deploy.vercel.app/"> ▶️ Access Deploy </a>
 </div>  
 
 ## ✏️ About
